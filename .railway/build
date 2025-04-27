@@ -1,0 +1,10 @@
+#!/bin/sh
+# Force Java 21 environment setup
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+# Verify Java version
+java -version
+
+# Build with reduced memory footprint
+./mvnw -B -DskipTests clean package -T 1C
