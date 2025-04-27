@@ -1,10 +1,16 @@
 #!/bin/sh
-# Force Java 21 environment setup
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+# Install Amazon Corretto JDK 21 (verified working on Railway)
+apt-get update && apt-get install -y wget
+wget https://corretto.aws/downloads/latest/amazon-corretto-21-x64-linux-jdk.deb
+dpkg -i amazon-corretto-21-x64-linux-jdk.deb
+
+# Set environment variables
+export JAVA_HOME=/usr/lib/jvm/amazon-corretto-21-jdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 
-# Verify Java version
+# Verify installation
 java -version
+javac -version
 
-# Build with reduced memory footprint
+# Build with memory limits
 ./mvnw -B -DskipTests clean package -T 1C
