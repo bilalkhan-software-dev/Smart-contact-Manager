@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(content,title)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">SCM</title>
+
+    <!-- Link of Tailwind CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
+
+    <!-- Link to Tailwind in HTML file -->
+    <link rel="stylesheet" th:href="@{/css/input.css}">
+    <link rel="stylesheet" th:href="@{/css/output.css}">
+
+    <!-- Font Awesome Link CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+
+<body class="dark:bg-gray-700 dark:text-white bg-gray-300 text-gray-900 ">
+
+<div th:if="${loggedInUser}">
+    <div th:replace="~{user/user_navbar :: ~{user_navbar}}"></div>
+</div>
+
+<div th:unless="${loggedInUser}">
+    <div th:replace="~{navbar :: navbar}"></div>
+</div>
+
+<!-- Main Content -->
+<div class="h-full">
+    <section th:replace="${content}">
+    </section>
+</div>
+
+<!-- Script Links -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!--table to excel cdn-->
+<script src="https://cdn.jsdelivr.net/npm/@linways/table-to-excel@1.0.4/dist/tableToExcel.min.js"></script>
+
+<script>
+    function tableToExcel(){
+        TableToExcel.convert(document.getElementById("contact-table"), {
+            name: "contacts.xlsx",
+            sheet: {
+                name: "Sheet 1"
+            }
+        });
+    }
+</script>
+
+
+<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/image_preview_contact.js}"></script>
+<script th:src="@{/js/modals.js}"></script>
+</body>
+</html>

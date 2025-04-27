@@ -1,0 +1,31 @@
+# Build output
+target/
+build/
+
+# Node modules and frontend artifacts
+node_modules/
+dist/
+.vite/
+
+# Local environments and secrets
+.env
+.env.*
+application.properties
+application-dev.properties
+application-prod.properties
+
+# Git and VCS
+.git/
+.gitignore
+
+# IDE and OS junk
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp

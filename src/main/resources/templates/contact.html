@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org"
+data-th-replace="~{base ::layout(~{::#content},~{::title})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page</title>
+</head>
+<body>
+    <div id="content">
+
+        <!-- Contact Section -->
+
+        <section class="py-20 bg-gray-300 dark:bg-gray-700 animate__animated animate__fadeInUp p-5 border-4 border-blue-400 ">
+            <div class="w-full max-w-lg mx-auto text-center mb-2 py-4">
+                <div data-th-replace="~{message :: ~{messageBox}}" ></div>
+            </div>
+
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4 p-6">Get in Touch</h2>
+                <form
+                        data-th-action="@{'/sendEmail'}"
+                        method="post"
+                        data-th-object="${emailForm}"
+                        class="max-w-lg mx-auto">
+                    <input type="text" data-th-field="*{name}" required placeholder="Your Name" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                    <input type="email" data-th-field="*{email}" required placeholder="Your Email" class="w-full px-4 py-2 mb-4 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white">
+                    <textarea placeholder="Your Message" data-th-field="*{message}"  required class="w-full px-4 py-2 mb-4 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-600 dark:text-white"></textarea>
+                    <button type="submit" class="bg-blue-600 mb-4 text-white px-6 py-3 rounded font-semibold hover:bg-blue-700 transition duration-300">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

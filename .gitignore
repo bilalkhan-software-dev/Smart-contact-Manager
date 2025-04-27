@@ -1,0 +1,73 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+
+
+### Node.js ###
+node_modules
+qodana.yaml
+
+
+### For locally testing Doocker ###
+docker-compose.yml
+
+
+
+### Tailwind Output we don't need ###
+
+src/main/resources/application-dev.properties
+
+
+
+
+### VS Code ###
+.vscode/
+
+
+
+### contain github and google client id and secret for developer level ###
+keyfile.txt
+
+
+
+
+
+### we don't need maven manually provided by spring boot ###
+
+
+
+
+
+
+
+
+
+

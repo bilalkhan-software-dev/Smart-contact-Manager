@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base :: layout(~{::#content},~{::title})}">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${loggedInUser.name} ?: 'User'+ '| Profile Page'">Profile Page</title>
+</head>
+<body>
+
+<div id="content">
+    <div data-th-if="${loggedInUser}">
+        <div data-th-replace="~{user/sidebar :: ~{sidebar}}"></div>
+    </div>
+    <div class="sm:pl-64 pt-20">
+        <!-- Responsive container with proper padding for all devices -->
+        <div class="px-4 sm:px-6 lg:px-8 py-6 md:py-12">
+            <!-- Profile card with responsive width and margins - now larger on big screens -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg mx-auto w-full max-w-md md:max-w-2xl lg:max-w-5xl xl:max-w-6xl">
+                <div class="p-6 sm:p-8 md:p-10 lg:p-12">
+                    <!-- Flex layout that changes a direction on mobile but stays column on all screens -->
+                    <div class="flex flex-col items-center gap-8 lg:gap-12">
+                        <!-- Profile image with larger sizing on big screens -->
+                        <div class="shrink-0">
+                            <img
+                                    data-th-src="${loggedInUser.profilePic}"
+                                    onerror="this.src='https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png'"
+                                    alt="Profile Photo"
+                                    class="w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full shadow-lg object-cover mx-auto"
+                            />
+                        </div>
+
+                        <!-- Profile details with centered text and larger text on big screens -->
+                        <div class="text-center w-full max-w-2xl lg:max-w-4xl">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4" data-th-text="${loggedInUser.name} ?:'User'">User Name</h2>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg md:text-xl" data-th-text="${loggedInUser.email} ?: 'user.email@example.com'">user.email@example.com</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 text-base sm:text-lg md:text-xl" data-th-text="${loggedInUser.phoneNum}">123-456-7890</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 text-base sm:text-lg md:text-xl text-center" data-th-text="${loggedInUser.about} ?: 'About is null because user detail is private when login with github OAuth'">About the user...</p>
+
+                            <!-- Verification status with centered layout -->
+                            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
+                                <p class="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400">
+                                    Email Verified:
+                                    <span class="font-medium text-gray-700 dark:text-gray-200"
+                                          id="email-verified"
+                                          data-th-text="${loggedInUser.emailVerified ? 'YES':'NO'}">No</span>
+                                </p>
+                                <p class="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400">
+                                    Phone Verified:
+                                    <span class="font-medium text-gray-700 dark:text-gray-200"
+                                          id="phone-verified"
+                                          data-th-text="${loggedInUser.phoneVerified ? 'YES':'NO'}">No</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

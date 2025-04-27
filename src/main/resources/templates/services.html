@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+th:replace="~{base ::layout(~{::#content},~{::title})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services Page</title>
+</head>
+<body>
+
+    <div id="content">
+
+<!--        Service Section-->
+        <section class="bg-gray-300 dark:bg-gray-700 min-h-[calc(100vh-4rem)]  px-4 py-12 sm:px-8 md:px-20 transition-colors duration-300 flex items-center">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-6">Our Services</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 mb-3 ">
+                    Smart Contact Manager offers everything you need to manage your connections — smarter, faster, and more securely.
+                </p>
+
+                <div class="grid gap-8 sm:grid-cols-2 mb-12">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+                        <i class="fa-solid fa-sitemap animate-bounce text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-400 mb-3">Organization</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            Sort and tag your contacts for instant access and better structure.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+                        <i class="fa-solid fa-cloud-arrow-up animate-bounce text-xl font-semibold text-blue-600 dark:text-blue-400 mb-2"></i>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-400 mb-3">Cloud Sync</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            Access your contacts from anywhere, synced securely in the cloud.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
