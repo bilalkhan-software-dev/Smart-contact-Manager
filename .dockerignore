@@ -1,33 +1,58 @@
-# Build output
+# Maven build output
 target/
 build/
 
-# Node modules and frontend artifacts
+# Node modules
 node_modules/
+
+# Frontend build artifacts (if any)
 dist/
 .vite/
 
-# Local environments and secrets
+# IDEs and editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.nb-gradle/
+/nbbuild/
+/dist/
+/nbdist/
+Thumbs.db
+.DS_Store
+
+# Spring specific
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# Git files
+.git/
+.gitignore
+
+# Environment and secret files
 .env
 .env.*
 application.properties
 application-dev.properties
 application-prod.properties
-src/main/resources/static/css/output.css
+keyfile.txt
 
+# Helper files
+HELP.md
+docker-compose.yml
+qodana.yaml
 
-# Git and VCS
-.git/
-.gitignore
+# Allow Maven Wrapper
+!mvnw
+!.mvn/
+.mvn/wrapper/maven-wrapper.jar
 
-# IDE and OS junk
-.vscode/
-.idea/
-*.iml
-.DS_Store
-Thumbs.db
-
-# Logs and temp files
-*.log
-*.tmp
-*.swp
+# Allow source codes even inside ignored build folders
+!src/**/target/
+!src/**/build/

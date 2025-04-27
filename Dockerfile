@@ -1,49 +1,47 @@
-# 🛠 Build stage (Java + Tailwind)
+# 🛠 Build Stage: Java + Tailwind CSS
 FROM --platform=linux/amd64 eclipse-temurin:21-jdk-jammy AS builder
 
 WORKDIR /app
 
-# Install Node.js and Tailwind
+# Install Node.js & Tailwind CSS
 RUN apt-get update && \
     apt-get install -y curl gnupg && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g tailwindcss
 
-# --- Maven Dependency Cache Optimization ---
-
-# Copy Maven wrapper and pom.xml first
+# Copy only Maven files first (for caching dependencies)
 COPY .mvn/ .mvn/
 COPY mvnw .
 COPY pom.xml .
 
-# ⚡ Make mvnw executable (important fix)
-RUN chmod +x mvnw
-
-# Pre-download Maven dependencies (cache dependencies layer)
+# Pre-fetch Maven dependencies
 RUN ./mvnw dependency:go-offline
 
-# --- Now copy the rest of the code ---
-COPY . .
+# Now copy the full project
+COPY src/ src/
+COPY tailwind.config.js .
+COPY package.json .
+COPY other-resources-if-any/ ./  # optional if you have static folders etc.
 
 # Build Tailwind CSS
 RUN tailwindcss -i src/main/resources/static/css/input.css \
                 -o src/main/resources/static/css/output.css \
                 --minify
 
-# Build Spring Boot App
+# Build Spring Boot app
 RUN ./mvnw clean package -DskipTests
 
-# 🛠 Runtime stage
+# 🛠 Runtime Stage
 FROM --platform=linux/amd64 eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-# Copy JAR from builder stage
+# Copy jar from builder
 COPY --from=builder /app/target/*.jar app.jar
 
 # Expose port
 EXPOSE 8080
 
-# Start app
+# Run the jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
