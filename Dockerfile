@@ -17,6 +17,9 @@ COPY .mvn/ .mvn/
 COPY mvnw .
 COPY pom.xml .
 
+# ⚡ Make mvnw executable (important fix)
+RUN chmod +x mvnw
+
 # Pre-download Maven dependencies (cache dependencies layer)
 RUN ./mvnw dependency:go-offline
 
