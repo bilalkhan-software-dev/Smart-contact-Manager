@@ -29,7 +29,6 @@
 	<properties>
 		<java.version>21</java.version>
 		<maven.compiler.release>21</maven.compiler.release>
-		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
 	</properties>
 	<dependencies>
 
@@ -117,13 +116,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
 					<release>${maven.compiler.release}</release>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
-					<compilerArgs>
-						<arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-					</compilerArgs>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<executable>/usr/lib/jvm/amazon-corretto-21-jdk-amd64/bin/javac</executable>
+
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
