@@ -1,35 +1,35 @@
-# 🛠 Build Stage: Java + Tailwind CSS
+# 🛠 Build Stage
 FROM --platform=linux/amd64 eclipse-temurin:21-jdk-jammy AS builder
 
 WORKDIR /app
 
-# Install Node.js & Tailwind CSS
+# Install Node.js & Tailwind CSS (Node 20 LTS)
 RUN apt-get update && \
     apt-get install -y curl gnupg && \
-    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g tailwindcss
 
-# Copy only Maven files first (for caching dependencies)
+# Copy build files
 COPY .mvn/ .mvn/
 COPY mvnw .
 COPY pom.xml .
 
-# Pre-fetch Maven dependencies
+# Get dependencies
 RUN ./mvnw dependency:go-offline
 
-# Now copy the full project
+# Copy application source
 COPY src/ src/
 COPY tailwind.config.js .
 COPY package.json .
-COPY other-resources-if-any/ ./  # optional if you have static folders etc.
+COPY other-resources-if-any/ ./
 
 # Build Tailwind CSS
 RUN tailwindcss -i src/main/resources/static/css/input.css \
                 -o src/main/resources/static/css/output.css \
                 --minify
 
-# Build Spring Boot app
+# Package application
 RUN ./mvnw clean package -DskipTests
 
 # 🛠 Runtime Stage
@@ -37,11 +37,12 @@ FROM --platform=linux/amd64 eclipse-temurin:21-jre-jammy
 
 WORKDIR /app
 
-# Copy jar from builder
+# Copy built application
 COPY --from=builder /app/target/*.jar app.jar
 
-# Expose port
-EXPOSE 8080
+# Port configuration for Railway (using SERVER_PORT)
+ENV SERVER_PORT=${PORT:-8080}
+EXPOSE ${SERVER_PORT:-8080}
 
-# Run the jar
+# Simple entrypoint
 ENTRYPOINT ["java", "-jar", "app.jar"]
