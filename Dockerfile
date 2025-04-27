@@ -1,5 +1,6 @@
 # Build stage (Java + Tailwind)
-FROM --palatform=linux/amd64 eclipse-temurin:21-jdk-jammy AS builder
+FROM --platform=linux/amd64 eclipse-temurin:21-jdk-jammy AS builder
+
 WORKDIR /app
 
 # Install Node.js and Tailwind
